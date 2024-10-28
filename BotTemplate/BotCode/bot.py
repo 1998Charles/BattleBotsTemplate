@@ -1,12 +1,22 @@
 from abc_classes import ABot
 from teams_classes import NewUser, NewPost
 
+from datetime import datetime
+
+
+def get_time_now():
+    dt = datetime.utcnow()
+    iso_format = dt.strftime("%Y-%m-%dT%H:%M:%S.000Z")
+    return iso_format
+
+
 class Bot(ABot):
     def create_user(self, session_info):
         # todo logic
         # Example:
         new_users = [
-            NewUser(username="TestBot", name="Emilie", description="I'm a test bot."),
+            NewUser(username="GradTestBot1", name="gradbot1", description="This is a gradbot1."),
+            NewUser(username="GradTestBot2", name="gradbot2", description="This is a gradbot2."),
         ]
         return new_users
 
@@ -16,6 +26,8 @@ class Bot(ABot):
         # Example:
 
         posts = []
-        for j in range(len(users_list)):
-            posts.append(NewPost(text="Pandas are amazing!", author_id=users_list[j].user_id, created_at='2024-08-18T00:20:30.000Z',user=users_list[j]))
+        n_tweets = 6
+        for i in range(n_tweets):
+            for j in range(len(users_list)):
+                posts.append(NewPost(text=f'{i}: Gradbots are working!', author_id=users_list[j].user_id, created_at=get_time_now(),user=users_list[j]))
         return posts
